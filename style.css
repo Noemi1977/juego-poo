@@ -1,0 +1,58 @@
+:root {
+    /* --color-bottom-stroke: #D29E2E;
+    --color-bottoms: #ffcc66;
+    --color-bottoms-light: #FEF5E6;
+    --color-background-grey: #C4C4C4;
+    --color-background-black: #2B2B2B;
+    --color-background-white: #ffffff;
+    --color-text-light: #ffffff;
+    --color-text-dark: #2B2B2B; */
+    /***************FONT SIZES**************/
+    --font-size-h1: 100px;
+    
+    /***************FONTS**************/
+    --font-primary: 'Honk', sans-serif;
+    
+}
+body {
+    margin: 0;
+    font-family:var(--font-primary);
+    overflow: hidden;
+    background-image: url("./public/img/fondo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+  }
+  #game-container {
+    position:relative;
+    width: 800px;
+    height: 400px;
+    margin: 20px auto;
+    border: 10px solid #6d6d6d;
+    background: #4a4040;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+  
+  .personaje {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #07a07c;
+    border-radius: 50%;
+    border: 5px solid #07a050;
+  }
+  
+  .moneda {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: gold;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 223, 0, 0.8);
+  }
