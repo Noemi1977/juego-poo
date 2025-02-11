@@ -13,7 +13,7 @@ class Game {
     crearEscenario() {
         this.personaje= new Personaje();// creamos un personaje
         this.container.appendChild(this.personaje.element) //agregamos dentro del contenedor un personaje que sera un hijo de container
-        for(let i=0; i<5;i++){ 
+        for(let i=0; i<10;i++){ 
             const moneda=new Moneda();
             this.monedas.push(moneda);//metemos en el arrey las monedas que se crearon
             this.container.appendChild(moneda.element); //agregamos las monedas(tambien es un hijo de container) 
@@ -56,15 +56,17 @@ class Personaje{
             this.x += this.velocidad;
         }else if (evento.key === "ArrowLeft"){
             this.x -= this.velocidad;
-        }else if(evento.key === "ArrowUp"){
+        }else if(evento.key === "ArrowUp" && !this.saltando){
             this.saltar();
         }
+       
+       
         this.actualizarPosicion();
 
     }
     saltar(){
         this.saltando = true;
-        let alturaMax = this.y - 100;
+        let alturaMax = this.y - 250;
         const salto = setInterval( () => {
             if (this.y > alturaMax){
                 this.y -= 10; //gravedad normal para que se mueva de forma normal y no lentamente  
@@ -82,6 +84,7 @@ class Personaje{
                 this.y += 10; 
             }else{
                 clearInterval(gravedad)
+                this.saltando=false;
             }
             this.actualizarPosicion();
         }

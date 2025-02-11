@@ -11,14 +11,14 @@
     --font-size-h1: 100px;
     
     /***************FONTS**************/
-    --font-primary: 'Honk', sans-serif;
+    --font-primary: 'Oi';
     
 }
 body {
     margin: 0;
     font-family:var(--font-primary);
     overflow: hidden;
-    background-image: url("./public/img/fondo.png");
+    background-image: url("./public/img/fondoWinnie.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -27,32 +27,39 @@ body {
     align-items: center;
     height: 100vh;
     flex-direction: column;
+    color: rgb(40, 165, 123);
   }
   #game-container {
     position:relative;
     width: 800px;
     height: 400px;
     margin: 20px auto;
-    border: 10px solid #6d6d6d;
-    background: #4a4040;
+    border: 10px solid #0f2810;
+    background: #91c9d3;
     overflow: hidden;
     border-radius: 30px;
   }
   
   .personaje {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: #07a07c;
-    border-radius: 50%;
-    border: 5px solid #07a050;
+    width: 70px;
+    height: 70px;
+    /* Reemplazamos el color por la imagen del osito */
+    background-image: url('./public/img/abeja.png');
+    background-size: cover;
+    background-position: center;
+    /* Eliminamos o ajustamos el borde si no es necesario */
+    /* border: 5px solid transparent; */
   }
   
   .moneda {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: gold;
-    border-radius: 50%;
-    box-shadow: 0 0 10px 2px rgba(255, 223, 0, 0.8);
+    width: 50px;
+    height: 50px;
+    /* Reemplazamos el color por la imagen de la margarita */
+    background-image: url('./public/img/miel.png');
+    background-size: cover;
+    background-position: center;
+    /* Podemos quitar el box-shadow si no se ajusta al diseño */
+    /* box-shadow: none; */
   }
