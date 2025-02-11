@@ -32,6 +32,13 @@ class Game {
                     this.container.removeChild(moneda.element);
                     this.monedas.splice(index,1)
                 }
+                 // Crea un objeto Audio para el sonido de colisión
+        const sonidoMoneda = new Audio('./');
+        sonidoMoneda.play().catch(error => {
+          console.log("Error al reproducir el sonido de colisión:", error);
+        
+      
+    });
             })
         },
             100)//cada milisegundo
@@ -52,9 +59,13 @@ class Personaje{
         this,this.actualizarPosicion();
     }
     mover(evento){
+        const limiteIzquierdo = 0;
+        const limiteDerecho = 800 - this.width; // 800px es el ancho del contenedor
         if(evento.key === "ArrowRight"){
+            if(this.x + this.velocidad <= limiteDerecho) // No se sale del limite derecho
             this.x += this.velocidad;
         }else if (evento.key === "ArrowLeft"){
+            if(this.x + this.velocidad >= limiteIzquierdo)// No se sale del limite izquierdo
             this.x -= this.velocidad;
         }else if(evento.key === "ArrowUp" && !this.saltando){
             this.saltar();
