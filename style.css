@@ -1,22 +1,21 @@
 :root {
-    /* --color-bottom-stroke: #D29E2E;
-    --color-bottoms: #ffcc66;
-    --color-bottoms-light: #FEF5E6;
-    --color-background-grey: #C4C4C4;
-    --color-background-black: #2B2B2B;
-    --color-background-white: #ffffff;
-    --color-text-light: #ffffff;
-    --color-text-dark: #2B2B2B; */
+  /***************COLORS**************/
+  --color-backgrounds: rgba(212, 228, 228, 0.8);
+  --color-score-text:#7b4926f4;
+  --color-border-radius:#49704b;
+  --color-text:#a8350c;
+    
     /***************FONT SIZES**************/
-    --font-size-h1: 100px;
+    --font-size-h1: 200px;
     
     /***************FONTS**************/
     --font-primary: 'Oi';
+    --font-secondary: 'Montserrat';
     
 }
 body {
     margin: 0;
-    font-family:var(--font-primary);
+    font-family:var(--font-secondary);
     overflow: hidden;
     background-image: url("./public/img/fondoWinnie.jpg");
     background-repeat: no-repeat;
@@ -27,15 +26,44 @@ body {
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    color: rgb(40, 165, 123);
+    color: var(--color-text);
+   
   }
+
+  h1{
+    text-shadow: 
+    -1px -1px 0 var(--color-border-radius),
+    5px -2px 0 var(--color-border-radius),
+   -5px  1px 0 var(--color-border-radius),
+    1px  5px 0 var(--color-border-radius),
+ /* Sombra difuminada para dar profundidad */
+   2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+ 
+
+  #score-board {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 400px;
+    height: 50px;
+    color:var(--color-score-text);
+    font-family:var(--font-secondary);
+    font-size: 20px;
+    background: var(--color-backgrounds);
+    padding: 10px;
+    border: 5px solid var(--color-border-radius);
+    border-radius: 20px;
+    z-index: 1000;
+  }
+
   #game-container {
     position:relative;
     width: 800px;
     height: 400px;
     margin: 20px auto;
-    border: 10px solid #0f2810;
-    background: #91c9d3;
+    border: 5px solid var(--color-border-radius);
+    background: var(--color-backgrounds);
     overflow: hidden;
     border-radius: 30px;
   }
@@ -44,22 +72,18 @@ body {
     position: absolute;
     width: 70px;
     height: 70px;
-    /* Reemplazamos el color por la imagen del osito */
     background-image: url('./public/img/abeja.png');
     background-size: cover;
     background-position: center;
-    /* Eliminamos o ajustamos el borde si no es necesario */
-    /* border: 5px solid transparent; */
+    
   }
   
   .moneda {
     position: absolute;
     width: 50px;
     height: 50px;
-    /* Reemplazamos el color por la imagen de la margarita */
     background-image: url('./public/img/miel.png');
     background-size: cover;
     background-position: center;
-    /* Podemos quitar el box-shadow si no se ajusta al diseño */
-    /* box-shadow: none; */
+    
   }

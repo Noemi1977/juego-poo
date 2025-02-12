@@ -4,12 +4,34 @@
 class Game {
     constructor() {
         this.container = document.getElementById("game-container");
+        this.iniciarMusicaFondo();
         this.personaje = null;
         this.monedas = [];
-        this.puntuacion=0;
+        this.puntuacion = 0;
+        this.restOfTime = 60;
+        this.gameEnded= false;
         this.crearEscenario();
         this.agregarEventos();
+        this.scoreElement = document.getElementById("score");
+        this.timerElement =document.getElementById("timer");
+        this.timerInit();
+        
     }
+
+    iniciarMusicaFondo(){ // Crea el objeto de audio para la música de fondo
+       
+        this.backgroundMusic = new Audio('./public/audio/ringtones-super-mario-bros.mp3');
+        this.backgroundMusic.loop = true;
+        this.backgroundMusic.volume = 0.2;
+        // Inicia la reproducción
+        document.addEventListener("click", () => {
+            this.backgroundMusic.play().catch(error => 
+                console.log("Error al reproducir la música de fondo:", error)
+            );
+        }, { once: true }); // Se ejecuta solo una vez
+
+    }
+
     crearEscenario() {
         this.personaje= new Personaje();// creamos un personaje
         this.container.appendChild(this.personaje.element) //agregamos dentro del contenedor un personaje que sera un hijo de container
@@ -17,33 +39,109 @@ class Game {
             const moneda=new Moneda();
             this.monedas.push(moneda);//metemos en el arrey las monedas que se crearon
             this.container.appendChild(moneda.element); //agregamos las monedas(tambien es un hijo de container) 
-            // en este caso 5 al contenedor mediante un bucle 
+            // en este caso 10 al contenedor mediante un bucle 
         }
     }
+    timerInit(){
+        this.intervalTime = setInterval(()=> {
+            if(this.restOfTime > 0) {
+                this.restOfTime--;
+                this.updateTimer();
+            } else{
+                clearInterval(this.intervalTime)
+                this.gameOver();
+            }
+
+        },1000);
+
+    }
+    updateTimer(){
+        this.timerElement.textContent =this.restOfTime;
+        this.timerElement.textContent= "Tiempo : " + this.restOfTime + " segundos";
+    }
+
     agregarEventos() {
-        window.addEventListener("keydown",(e)=> this.personaje.mover(e));
+        this.keyListener = (e) => this.personaje.mover(e);
+        window.addEventListener("keydown", this.keyListener);
         this.checkColisiones();
 
     }
     checkColisiones() {
-        setInterval( ()=>{
-            this.monedas.forEach((moneda,index)=>{
-                if(this.personaje.colisionaCon(moneda)){ //Si un personaje colisiona con una moneda se quitara esa moneda 
-                    this.container.removeChild(moneda.element);
-                    this.monedas.splice(index,1)
-                }
-                 // Crea un objeto Audio para el sonido de colisión
-        const sonidoMoneda = new Audio('./');
-        sonidoMoneda.play().catch(error => {
-          console.log("Error al reproducir el sonido de colisión:", error);
-        
-      
-    });
-            })
-        },
-            100)//cada milisegundo
+        setInterval(() => {
+            this.monedas.forEach((moneda, index) => {
+              if (this.personaje.colisionaCon(moneda)) {
+                // Elimina la moneda del DOM y del arreglo
+                this.container.removeChild(moneda.element);
+                this.monedas.splice(index, 1);
+                // Actualiza la puntuación y reproduce el sonido
+                this.actualizarScore(100);
+                const sonidoMoneda = new Audio('./public/audio/pop-39222.mp3');
+                sonidoMoneda.play().catch(error => {
+                  console.log("Error al reproducir el sonido de la moneda:", error);
+                });
+              }
+            });
+            
+            // Comprobamos si se han recogido todas las monedas
+            if (this.monedas.length === 0 && !this.gameEnded) {
+                this.gameEnded = true;
+              // Llamamos a gameOver para finalizar el juego inmediatamente
+              this.gameOver();
+            }
+            
+          }, 100);
 
     }
+actualizarScore(score){
+    this.puntuacion += score;
+    this.scoreElement.textContent= "Puntuacion : " + this.puntuacion + " puntos";
+}
+
+gameOver(){
+   
+    // Detenemos el marcador y blqueamos la interacción
+    clearInterval(this.intervalTime);
+    window.removeEventListener("keydown",this.keyListener);
+    
+    // Paramos la musica de fondo
+    this.backgroundMusic.pause();
+    this.backgroundMusic.currentTime = 0;
+    // Condiciona un sonido u otro segun se gane o se pierda 
+    let titulo = "";
+    let mensaje = "";
+    let icono = "";
+    if(this.monedas.length===0 && this.puntuacion === 1000){
+        this.backgroundMusic.pause();
+        const victoriaSound= new Audio("./public/audio/applause-sound-effect-240470.mp3");
+        victoriaSound.play().catch(error=> console.log("Error de sonido",error));
+        titulo = "¡Ganaste! 🎉";
+        mensaje = "Has recogido toda la miel. Puntuación final: " + this.puntuacion;
+        icono = "success";
+    } else{
+        const defeatSound= new Audio ("./public/audio/cartoon-trombone-sound-effect-241387.mp3")
+        defeatSound.play().catch(error=> console.log("Error de sonido",error));
+        titulo = "¡Perdiste! 😢";
+        mensaje = "No terminaste a tiempo. Puntuación final: " + this.puntuacion;
+        icono = "error";
+    }
+    Swal.fire({
+        title: titulo,
+        text: mensaje,
+        icon: icono,
+        confirmButtonText: "Aceptar",
+        background: "#7b4926f4",
+        color: "#49704b",
+        confirmButtonColor: "#49704b",
+        customClass: {
+            popup: 'custom-popup',
+            title: 'custom-title',
+            confirmButton: 'custom-button'
+        }
+    }).then(() => {
+        location.reload(); // Reiniciar juego
+    });  
+}
+
 }
 
 class Personaje{
@@ -56,7 +154,7 @@ class Personaje{
         this.saltando = false;
         this.element = document.createElement("div"); //crea un div para este elemento
         this.element.classList.add("personaje");// y le asigna la clase personaje
-        this,this.actualizarPosicion();
+        this.actualizarPosicion();
     }
     mover(evento){
         const limiteIzquierdo = 0;
