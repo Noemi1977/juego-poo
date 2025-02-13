@@ -258,11 +258,16 @@ document.getElementById("buttonInicio").addEventListener("click", () => {
 
         // Los asignamos segun la posición
         botones.forEach((boton, index) => {
+        
             boton.addEventListener("click", () => {
-                if (index === 0) juego.personaje.mover({ key: "ArrowLeft" });  // Izquierda
-                if (index === 1) juego.personaje.mover({ key: "ArrowUp" });    // Salto
-                if (index === 2) juego.personaje.mover({ key: "ArrowRight" }); // Derecha
+        
+                    if (index === 0) juego.personaje.mover({ key: "ArrowLeft" });  // Izquierda
+                    if (index === 1) juego.personaje.mover({ key: "ArrowUp" });    // Salto
+                    if (index === 2) juego.personaje.mover({ key: "ArrowRight" }); // Derecha
+                }, 100);
             });
-        });
-    }
-});
+        
+           
+            
+        }});
+    
