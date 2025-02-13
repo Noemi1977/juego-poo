@@ -18,19 +18,33 @@ class Game {
         
     }
 
-    iniciarMusicaFondo(){ // Crea el objeto de audio para la música de fondo
-       
+    iniciarMusicaFondo() {
         this.backgroundMusic = new Audio('./public/audio/ringtones-super-mario-bros.mp3');
         this.backgroundMusic.loop = true;
         this.backgroundMusic.volume = 0.2;
-        // Inicia la reproducción
-        document.addEventListener("click", () => {
-            this.backgroundMusic.play().catch(error => 
-                console.log("Error al reproducir la música de fondo:", error)
-            );
-        }, { once: true }); // Se ejecuta solo una vez
-
+        this.isPlaying = true; // La música empieza encendida por defecto
+        this.backgroundMusic.play().catch(error => 
+            console.log("Error al reproducir la música de fondo:", error)
+        );
+    
+        // Capturamos el botón y su imagen
+        const buttonSound = document.getElementById("buttonSound");
+        const buttonImage = buttonSound.querySelector("img");
+    
+        buttonSound.addEventListener("click", () => {
+            if (this.isPlaying) {
+                this.backgroundMusic.pause();
+                buttonImage.src = "./public/img/noSound.png"; 
+            } else {
+                this.backgroundMusic.play().catch(error => 
+                    console.log("Error al reproducir la música de fondo:", error)
+                );
+                buttonImage.src = "./public/img/sound.png"; 
+            }
+            this.isPlaying = !this.isPlaying; 
+        });
     }
+    
 
     crearEscenario() {
         this.personaje= new Personaje();// creamos un personaje
@@ -156,6 +170,8 @@ class Personaje{
         this.element.classList.add("personaje");// y le asigna la clase personaje
         this.actualizarPosicion();
     }
+    
+    
     mover(evento){
         const limiteIzquierdo = 0;
         const limiteDerecho = 800 - this.width; // 800px es el ancho del contenedor
@@ -231,4 +247,22 @@ class Moneda {
 
 }
 
-const juego = new Game()
+let juego = null; // No iniciamos el juego todavia 
+
+document.getElementById("buttonInicio").addEventListener("click", () => {
+    if (!juego) {
+        juego = new Game(); // se crea el juego al pulsar el botón
+
+        // Seleccionamos los botones del index
+        const botones = document.querySelectorAll(".bArrow");
+
+        // Los asignamos segun la posición
+        botones.forEach((boton, index) => {
+            boton.addEventListener("click", () => {
+                if (index === 0) juego.personaje.mover({ key: "ArrowLeft" });  // Izquierda
+                if (index === 1) juego.personaje.mover({ key: "ArrowUp" });    // Salto
+                if (index === 2) juego.personaje.mover({ key: "ArrowRight" }); // Derecha
+            });
+        });
+    }
+});

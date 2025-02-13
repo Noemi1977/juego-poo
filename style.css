@@ -93,20 +93,38 @@ body {
     background-position: center;
     
   }
+#img{
+  height: 100px;
+  width: 100px;
+}
 
-  #buttonSound{
-    border-radius: 10 px;
+  #buttonInicio{
+    position: absolute;
+    top: 60px;
+    right: 100px;
+    border-radius: 20px;
     background: var(--color-backgrounds);
-    width: 100px;
-    height: 50px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
+    border: 5px solid var(--color-border-radius);
+
+  }
+  #buttonSound{
+    border-radius: 20px;
+    background: var(--color-backgrounds);
+    width: 105px;
+    height: 105px;
+    overflow: hidden;
+    border: 5px solid var(--color-border-radius);
 
   }
 
   .bArrow{
-    border-radius: 10 px;
+    border-radius: 20px;
     background: var(--color-backgrounds);
     width: 100px;
     height: 50px;
     overflow: hidden;
+    border: 5px solid var(--color-border-radius);
   }
