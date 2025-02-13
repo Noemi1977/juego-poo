@@ -6,7 +6,8 @@ class Game {
         this.container = document.getElementById("game-container");
         this.iniciarMusicaFondo();
         this.personaje = null;
-        this.monedas = [];
+        this.honeys = [];
+        this.obstaculo= null;
         this.puntuacion = 0;
         this.restOfTime = 60;
         this.gameEnded= false;
@@ -48,27 +49,38 @@ class Game {
 
     crearEscenario() {
         this.personaje= new Personaje();// creamos un personaje
-        this.container.appendChild(this.personaje.element) //agregamos dentro del contenedor un personaje que sera un hijo de container
+        this.container.appendChild(this.personaje.element); //agregamos dentro del contenedor un personaje que sera un hijo de container
+        
         for(let i=0; i<10;i++){ 
-            const moneda=new Moneda();
-            this.monedas.push(moneda);//metemos en el arrey las monedas que se crearon
-            this.container.appendChild(moneda.element); //agregamos las monedas(tambien es un hijo de container) 
+            const honey= new Honey();
+            this.honeys.push(honey);//metemos en el arrey las monedas que se crearon
+            this.container.appendChild(honey.element); //agregamos las monedas(tambien es un hijo de container) 
             // en este caso 10 al contenedor mediante un bucle 
         }
-    }
-    timerInit(){
+         // Crear obstáculo usando la clase heredada
+         this.obstaculo = new Obstaculo();
+         this.container.appendChild(this.obstaculo.element);
+        
+        // Crear FlyKill
+        this.flyKill = new FlyKill();
+        this.container.appendChild(this.flyKill.element);
+     }
+    
+
+    timerInit() {
         this.intervalTime = setInterval(()=> {
             if(this.restOfTime > 0) {
                 this.restOfTime--;
                 this.updateTimer();
             } else{
-                clearInterval(this.intervalTime)
+                clearInterval(this.intervalTime);
                 this.gameOver();
             }
 
-        },1000);
+        }, 1000);
 
     }
+
     updateTimer(){
         this.timerElement.textContent =this.restOfTime;
         this.timerElement.textContent= "Tiempo : " + this.restOfTime + " segundos";
@@ -82,22 +94,31 @@ class Game {
     }
     checkColisiones() {
         setInterval(() => {
-            this.monedas.forEach((moneda, index) => {
-              if (this.personaje.colisionaCon(moneda)) {
+            this.honeys.forEach((honey, index) => {
+              if (this.personaje.colisionaCon(honey)) {
                 // Elimina la moneda del DOM y del arreglo
-                this.container.removeChild(moneda.element);
-                this.monedas.splice(index, 1);
+                this.container.removeChild(honey.element);
+                this.honeys.splice(index, 1);
                 // Actualiza la puntuación y reproduce el sonido
                 this.actualizarScore(100);
-                const sonidoMoneda = new Audio('./public/audio/pop-39222.mp3');
-                sonidoMoneda.play().catch(error => {
-                  console.log("Error al reproducir el sonido de la moneda:", error);
+                const sonidoHoney = new Audio('./public/audio/pop-39222.mp3');
+                sonidoHoney.play().catch(error => {
+                  console.log("Error al reproducir el sonido del choque:", error);
                 });
               }
             });
-            
+             // Verificar colisión con el obstáculo (Game Over)
+             if (this.personaje.colisionaCon(this.obstaculo )) {
+                console.log("¡Colisión con el obstáculo!");
+                this.gameOver(true);
+            }
+              // Verificar colisión con el FlyKill 
+            if (this.personaje.colisionaCon(this.flyKill)) {
+            console.log("¡Colisión con el FlyKill!");
+            this.gameOver("flykill");  // Aquí pasamos el tipo de colisión para el FlyKill
+        }
             // Comprobamos si se han recogido todas las monedas
-            if (this.monedas.length === 0 && !this.gameEnded) {
+            if (this.honeys.length === 0 && !this.gameEnded) {
                 this.gameEnded = true;
               // Llamamos a gameOver para finalizar el juego inmediatamente
               this.gameOver();
@@ -111,8 +132,11 @@ actualizarScore(score){
     this.scoreElement.textContent= "Puntuacion : " + this.puntuacion + " puntos";
 }
 
-gameOver(){
-   
+gameOver(tipoColision=""){
+   // Evita que se ejecute múltiples veces si el juego ya terminó
+   if (this.gameEnded) return;
+
+   this.gameEnded = true; // Marcamos que el juego ha terminado
     // Detenemos el marcador y blqueamos la interacción
     clearInterval(this.intervalTime);
     window.removeEventListener("keydown",this.keyListener);
@@ -124,20 +148,32 @@ gameOver(){
     let titulo = "";
     let mensaje = "";
     let icono = "";
-    if(this.monedas.length===0 && this.puntuacion === 1000){
-        this.backgroundMusic.pause();
-        const victoriaSound= new Audio("./public/audio/applause-sound-effect-240470.mp3");
-        victoriaSound.play().catch(error=> console.log("Error de sonido",error));
+    let finalSound;
+
+    
+    if (tipoColision === "flykill") {
+        // Si la colisión fue con el FlyKill
+        finalSound = new Audio("./public/audio/cartoon-trombone-sound-effect-241387.mp3");
+        titulo = "¡Oh no! 🐝";
+        mensaje = "Lo siento, han cazado a nuestra abejita y ya no podrá recolectar miel.";
+        icono = "error";
+    } else if (this.honeys.length === 0 && this.puntuacion === 1000) {
+        // Si el jugador ha ganado
+        finalSound = new Audio("./public/audio/applause-sound-effect-240470.mp3");
         titulo = "¡Ganaste! 🎉";
-        mensaje = "Has recogido toda la miel. Puntuación final: " + this.puntuacion;
+        mensaje = `Has recogido toda la miel. Puntuación final: ${this.puntuacion}`;
         icono = "success";
-    } else{
-        const defeatSound= new Audio ("./public/audio/cartoon-trombone-sound-effect-241387.mp3")
-        defeatSound.play().catch(error=> console.log("Error de sonido",error));
+    } else {
+        // Si el jugador ha perdido por el tiempo
+        finalSound = new Audio("./public/audio/cartoon-trombone-sound-effect-241387.mp3");
         titulo = "¡Perdiste! 😢";
-        mensaje = "No terminaste a tiempo. Puntuación final: " + this.puntuacion;
+        mensaje = `No terminaste a tiempo. Puntuación final: ${this.puntuacion}`;
         icono = "error";
     }
+     // Reproduce el sonido de fin de juego
+     finalSound.play().catch(error => console.log("Error de sonido", error));
+
+
     Swal.fire({
         title: titulo,
         text: mensaje,
@@ -152,7 +188,7 @@ gameOver(){
             confirmButton: 'custom-button'
         }
     }).then(() => {
-        location.reload(); // Reiniciar juego
+         location.reload(); // Reiniciar juego
     });  
 }
 
@@ -230,14 +266,14 @@ class Personaje{
     }
 }
 
-class Moneda {
-    constructor() {
+class ElementGame{
+    constructor (classCSS, width, height) {
         this.x = Math.random()*700 + 50; 
         this.y = Math.random()*250 + 50; //Colocamos las monedas de forma aleatoria 
-        this.width = 30;
-        this.height = 30;
+        this.width = width;
+        this.height = height;
         this.element = document.createElement("div");
-        this.element.classList.add("moneda");
+        this.element.classList.add(classCSS);
         this.actualizarPosicion();
     }
     actualizarPosicion(){
@@ -245,7 +281,25 @@ class Moneda {
         this.element.style.top = `${this.y}px`;
     }
 
-}
+    }
+    class Honey extends ElementGame {
+        constructor() {
+            super("honey", 30, 30);
+        }
+    }
+    
+    class Obstaculo extends ElementGame {
+        constructor() {
+            super("obstaculo", 40, 40);
+        }
+    }
+    class FlyKill extends ElementGame {
+        constructor() {
+            super("flykill", 40, 40);  // Asumiendo que tiene un tamaño de 40x40
+        }
+    }
+
+
 
 let juego = null; // No iniciamos el juego todavia 
 
