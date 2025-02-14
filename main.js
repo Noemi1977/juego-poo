@@ -150,7 +150,7 @@ gameOver(tipoColision=""){
         // Si la colisión fue con el obstáculo
         finalSound = new Audio("./public/audio/cartoon-trombone-sound-effect-241387.mp3");
         titulo = "¡Oh no! 🐝";
-        mensaje = "¡La abejita ha sido atrapada por el matamoscas!";
+        mensaje = "¡¡¡¡La abejita ha sido atrapada por el oso feroz!!!!";
         icono = "error";
     } else if (this.honeys.length === 0 && this.puntuacion === 1000) {
         // Si el jugador ha ganado

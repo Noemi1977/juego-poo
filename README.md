@@ -4,7 +4,7 @@
 
 ## 📌 Descripción
 
-"Las Aventuras de POO" es un juego casual y entretenido donde controlas una abejita recolectora que debe conseguir la mayor cantidad de miel posible mientras esquiva el peligroso matamoscas. Con una mecánica simple pero adictiva, este juego está diseñado para ser disfrutado por jugadores de todas las edades.
+"Las Aventuras de POO" es un juego casual y entretenido donde controlas una abejita recolectora que debe conseguir la mayor cantidad de miel posible en 60 segundos,mientras esquiva el peligroso oso feroz. Con una mecánica simple pero adictiva, este juego está diseñado para ser disfrutado por jugadores de todas las edades.
 
 ## 🎮 Instrucciones de Juego
 
@@ -59,7 +59,7 @@ El proyecto está en continuo desarrollo con las siguientes mejoras planificadas
 
 ## 👾 Demo
 
-[Enlace al juego] *(Añadir enlace cuando esté disponible)*
+[Enlace al juego] *([https://noemi1977.github.io/juego-poo/])*
 
 ## 💻 Instalación
 
