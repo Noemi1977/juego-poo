@@ -1,5 +1,7 @@
 # Las Aventuras de POO🐝
 
+![captura de juego](./public/img/imgReadme.png)
+
 📌 Descripción🐝
 
 Este es un divertido juego donde controlamos una pequeña abejita cuya misión es recolectar toda la miel posible mientras evita un matamoscas. La mecánica del juego es sencilla y accesible para todos los públicos.
@@ -42,10 +44,6 @@ Incluir más obstáculos y aumentar la dificultad progresivamente.
 
 Añadir nuevos niveles o mecánicas de juego para mayor variedad.
 
-📷 Capturas de pantalla
-
-![captura de juego](./public/img/imgReadme.png)
-
 💡 Créditos
 
-Proyecto desarrollado con mucho esfuerzo y creatividad. ¡Esperamos que disfrutes jugando tanto como nosotros creándolo! 🎉🐝
+Proyecto desarrollado con mucho esfuerzo y creatividad, por Noemi Casaprima. ¡Espero que disfrutes jugando tanto como yo creándolo! 🎉🐝
