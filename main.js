@@ -107,7 +107,8 @@ class Game {
             });
              // Verificar colisión con el obstáculo (Game Over)
              if (this.personaje.colisionaCon(this.obstaculo )) {
-                this.gameOver(true);
+                this.gameOver("obstaculo");  
+               
                 return;
             }
         
@@ -145,7 +146,13 @@ gameOver(tipoColision=""){
 
     
    
-    if (this.honeys.length === 0 && this.puntuacion === 1000) {
+    if (tipoColision === "obstaculo") {
+        // Si la colisión fue con el obstáculo
+        finalSound = new Audio("./public/audio/cartoon-trombone-sound-effect-241387.mp3");
+        titulo = "¡Oh no! 🐝";
+        mensaje = "¡La abejita ha sido atrapada por el matamoscas!";
+        icono = "error";
+    } else if (this.honeys.length === 0 && this.puntuacion === 1000) {
         // Si el jugador ha ganado
         finalSound = new Audio("./public/audio/applause-sound-effect-240470.mp3");
         titulo = "¡Ganaste! 🎉";
@@ -155,7 +162,7 @@ gameOver(tipoColision=""){
         // Si el jugador ha perdido por el tiempo
         finalSound = new Audio("./public/audio/cartoon-trombone-sound-effect-241387.mp3");
         titulo = "¡Perdiste! 😢";
-        mensaje = `Oooo! No ha podido ser, Quieres volver a intentarlo?. Puntuación final: ${this.puntuacion}`;
+        mensaje = `¡Oh no! 🐝! No ha podido ser, Quieres volver a intentarlo?. Puntuación final: ${this.puntuacion}`;
         icono = "error";
     }
      // Reproduce el sonido de fin de juego
