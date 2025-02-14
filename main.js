@@ -155,7 +155,7 @@ gameOver(tipoColision=""){
         // Si el jugador ha perdido por el tiempo
         finalSound = new Audio("./public/audio/cartoon-trombone-sound-effect-241387.mp3");
         titulo = "¡Perdiste! 😢";
-        mensaje = `No terminaste a tiempo. Puntuación final: ${this.puntuacion}`;
+        mensaje = `Oooo! No ha podido ser, Quieres volver a intentarlo?. Puntuación final: ${this.puntuacion}`;
         icono = "error";
     }
      // Reproduce el sonido de fin de juego
