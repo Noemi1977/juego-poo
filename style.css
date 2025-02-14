@@ -118,7 +118,7 @@ body {
     height: 150px;
     overflow: hidden;
     border: 5px solid var(--color-border-radius);
-
+    cursor: pointer;
   }
   #buttonSound{
     border-radius: 20px;
@@ -127,6 +127,7 @@ body {
     height: 105px;
     overflow: hidden;
     border: 5px solid var(--color-border-radius);
+    cursor: pointer;
 
   }
 
@@ -137,4 +138,5 @@ body {
     height: 50px;
     overflow: hidden;
     border: 5px solid var(--color-border-radius);
+    cursor: pointer;
   }
