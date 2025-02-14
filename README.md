@@ -1,49 +1,102 @@
-# Las Aventuras de POO🐝
+# Las Aventuras de POO 🐝
 
-![captura de juego](./public/img/imgReadme.png)
+![Game Screenshot](./public/img/imgReadme.png)
 
-📌 Descripción🐝
+## 📌 Descripción
 
-Este es un divertido juego donde controlamos una pequeña abejita cuya misión es recolectar toda la miel posible mientras evita un matamoscas. La mecánica del juego es sencilla y accesible para todos los públicos.
+"Las Aventuras de POO" es un juego casual y entretenido donde controlas una abejita recolectora que debe conseguir la mayor cantidad de miel posible mientras esquiva el peligroso matamoscas. Con una mecánica simple pero adictiva, este juego está diseñado para ser disfrutado por jugadores de todas las edades.
 
-🎮 Cómo jugar
+## 🎮 Instrucciones de Juego
 
-Haz clic en el botón Inicio ![captura de juego](./public/img/casitaReadme1.png) para comenzar la partida.
+### Inicio
 
-La abejita puede moverse en tres direcciones:
+- Pulsa el botón de inicio ![Start Button](./public/img/casitaReadme.png) para comenzar la aventura
 
-Izquierda
+### Controles
 
-Derecha
+El juego ofrece dos métodos de control para mayor accesibilidad:
 
-Arriba (Saltar)
+**Teclado:**
 
-Puedes controlar a la abejita de dos formas:
+- ⬅️ Flecha izquierda: Mover a la izquierda
+- ➡️ Flecha derecha: Mover a la derecha
+- ⬆️ Flecha arriba: Saltar
 
-Con el teclado: Usando las flechas direccionales.
+**Ratón:**
 
-Con el ratón: Pulsando los controles en pantalla.
+- Interfaz táctil en pantalla con botones direccionales
 
-El juego comienza con sonido activado, pero puedes apagarlo en cualquier momento.
+### Características
 
-🔧 Tecnologías utilizadas
+- Sistema de puntuación basado en la recolección de miel
+- Control de audio ajustable durante el juego
+- Diseño intuitivo y amigable
 
-JavaScript: Para la lógica del Juego
+## 🛠️ Tecnologías
 
-HTML Para aplicar la estructura de la interfaz
+- **Frontend:**
+  - HTML5
+  - CSS3
+  - JavaScript vanilla
 
-CSS Para los estilos y el diseño visual
+## 🚀 Roadmap
 
-🚀 Mejoras futuras
+El proyecto está en continuo desarrollo con las siguientes mejoras planificadas:
 
-Este es solo el comienzo del juego, y planeamos agregar mejoras en futuras versiones, como:
+1. **Fase 1: Optimización**
+   - Implementación de diseño responsive
+   - Adaptación para dispositivos móviles
 
-Hacerlo responsive para que funcione en dispositivos móviles.
+2. **Fase 2: Contenido**
+   - Nuevos niveles con dificultad progresiva
+   - Sistema de obstáculos variados
+   - Mecánicas de juego adicionales
 
-Incluir más obstáculos y aumentar la dificultad progresivamente.
+3. **Fase 3: Experiencia de Usuario**
+   - Sistema de logros
+   - Tabla de puntuaciones
+   - Modos de juego adicionales
 
-Añadir nuevos niveles o mecánicas de juego para mayor variedad.
+## 👾 Demo
 
-💡 Créditos
+[Enlace al juego] *(Añadir enlace cuando esté disponible)*
 
-Proyecto desarrollado con mucho esfuerzo y creatividad, por Noemi Casaprima. ¡Espero que disfrutes jugando tanto como yo creándolo! 🎉🐝
+## 💻 Instalación
+
+```bash
+# Clonar el repositorio
+git clone [https://github.com/Noemi1977/juego-poo.git]
+
+# Abrir el juego
+Abre index.html en tu navegador preferido
+```
+
+## 🤝 Contribuciones
+
+Las sugerencias y contribuciones son siempre bienvenidas.
+Puedes:
+
+1. Fork este repositorio
+2. Crear una nueva rama (`git checkout -b feature/mejora`)
+3. Realizar tus cambios
+4. Commit (`git commit -m 'Añade nueva funcionalidad'`)
+5. Push a la rama (`git push origin feature/mejora`)
+6. Abrir un Pull Request
+
+## ✨ Autora
+
+Noemi Casaprima - Desarrolladora Full Stack
+
+- [GitHub] *([(https://github.com/Noemi1977)])*
+
+- [LinkedIn] *([https://www.linkedin.com/in/
+noemí-casaprima-pendás]
+)*
+
+## 📝 Licencia
+
+Este proyecto es open source
+
+---
+
+Desarrollado con 💖 y ☕ como parte del bootcamp de Factoria F5.
