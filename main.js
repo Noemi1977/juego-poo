@@ -61,10 +61,7 @@ class Game {
          this.obstaculo = new Obstaculo();
          this.container.appendChild(this.obstaculo.element);
         
-        // Crear FlyKill
-        this.flyKill = new FlyKill();
-        this.container.appendChild(this.flyKill.element);
-     }
+    }
     
 
     timerInit() {
@@ -93,6 +90,7 @@ class Game {
 
     }
     checkColisiones() {
+        if (this.gameEnded) return;
         setInterval(() => {
             this.honeys.forEach((honey, index) => {
               if (this.personaje.colisionaCon(honey)) {
@@ -109,19 +107,17 @@ class Game {
             });
              // Verificar colisión con el obstáculo (Game Over)
              if (this.personaje.colisionaCon(this.obstaculo )) {
-                console.log("¡Colisión con el obstáculo!");
                 this.gameOver(true);
+                return;
             }
-              // Verificar colisión con el FlyKill 
-            if (this.personaje.colisionaCon(this.flyKill)) {
-            console.log("¡Colisión con el FlyKill!");
-            this.gameOver("flykill");  // Aquí pasamos el tipo de colisión para el FlyKill
-        }
+        
             // Comprobamos si se han recogido todas las monedas
             if (this.honeys.length === 0 && !this.gameEnded) {
-                this.gameEnded = true;
+                
               // Llamamos a gameOver para finalizar el juego inmediatamente
-              this.gameOver();
+              this.gameOver("win");
+              return;
+
             }
             
           }, 100);
@@ -135,7 +131,7 @@ actualizarScore(score){
 gameOver(tipoColision=""){
    // Evita que se ejecute múltiples veces si el juego ya terminó
    if (this.gameEnded) return;
-
+   
    this.gameEnded = true; // Marcamos que el juego ha terminado
     // Detenemos el marcador y blqueamos la interacción
     clearInterval(this.intervalTime);
@@ -145,19 +141,11 @@ gameOver(tipoColision=""){
     this.backgroundMusic.pause();
     this.backgroundMusic.currentTime = 0;
     // Condiciona un sonido u otro segun se gane o se pierda 
-    let titulo = "";
-    let mensaje = "";
-    let icono = "";
-    let finalSound;
+    let titulo, mensaje, icono, finalSound;
 
     
-    if (tipoColision === "flykill") {
-        // Si la colisión fue con el FlyKill
-        finalSound = new Audio("./public/audio/cartoon-trombone-sound-effect-241387.mp3");
-        titulo = "¡Oh no! 🐝";
-        mensaje = "Lo siento, han cazado a nuestra abejita y ya no podrá recolectar miel.";
-        icono = "error";
-    } else if (this.honeys.length === 0 && this.puntuacion === 1000) {
+   
+    if (this.honeys.length === 0 && this.puntuacion === 1000) {
         // Si el jugador ha ganado
         finalSound = new Audio("./public/audio/applause-sound-effect-240470.mp3");
         titulo = "¡Ganaste! 🎉";
@@ -293,11 +281,7 @@ class ElementGame{
             super("obstaculo", 40, 40);
         }
     }
-    class FlyKill extends ElementGame {
-        constructor() {
-            super("flykill", 40, 40);  // Asumiendo que tiene un tamaño de 40x40
-        }
-    }
+    
 
 
 
