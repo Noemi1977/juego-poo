@@ -23,7 +23,7 @@ class Game {
         this.backgroundMusic = new Audio('./public/audio/ringtones-super-mario-bros.mp3');
         this.backgroundMusic.loop = true;
         this.backgroundMusic.volume = 0.2;
-        this.isPlaying = true; // La música empieza encendida por defecto
+        this.isPlaying = true; 
         this.backgroundMusic.play().catch(error => 
             console.log("Error al reproducir la música de fondo:", error)
         );
