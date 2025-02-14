@@ -6,7 +6,7 @@ Este es un divertido juego donde controlamos una pequeña abejita cuya misión e
 
 🎮 Cómo jugar
 
-Haz clic en el botón Inicio ![captura de juego](./public/img/casitaReadme.png) para comenzar la partida.
+Haz clic en el botón Inicio ![captura de juego](./public/img/casitaReadme1.png) para comenzar la partida.
 
 La abejita puede moverse en tres direcciones:
 
